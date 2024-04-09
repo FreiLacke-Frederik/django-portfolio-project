@@ -32,3 +32,6 @@ class Dashboard(TemplateView):
         context["revenue"] = revenue
         context["low_stock_items"] = low_ingredients
         return context
+
+class Test(TemplateView):
+    template_name = "test.html"

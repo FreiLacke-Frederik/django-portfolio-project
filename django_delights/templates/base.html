@@ -11,12 +11,12 @@
 
 <body>
     <header class="header">
-        <a href="/" class="logo">Logo</a>
+        <a href="{% url 'home' %}" class="logo">Logo</a>
 
         <nav class="navbar">
-            <a href="#">Menu Items</a>
-            <a href="#">Inventory</a>
-            <a href="#">Purchases</a>
+            <a href="{% url 'menu_items' %}">Menu Items</a>
+            <a href="{% url 'inventory' %}">Inventory</a>
+            <a href="{% url 'purchases' %}">Purchases</a>
         </nav>
 
     </header>
