@@ -1,9 +1,12 @@
 {% load static %}
 <!DOCTYPE html>
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'restaurant/styles.css' %}">
 {% block head %}
 {% endblock %}
-<link rel="stylesheet" href="{% static 'restaurant/styles.css' %}"
 </head>
 
 <body>
@@ -15,7 +18,7 @@
             <a href="#">Inventory</a>
             <a href="#">Purchases</a>
         </nav>
-        
+
     </header>
 {% block content %}
 {% endblock %}

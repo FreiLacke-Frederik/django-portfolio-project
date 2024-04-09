@@ -1,1 +1,32 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="card--container">
+    <h3>Dashboard</h3>
+    
+    <div class="card--wrapper">
+        <div class="top-three-card">
+            <div class="card--header">
+                <h1>Top three items</h1>
+            </div>
+            <div class="card--content">
+                <h2>Item One</h2>
+                <h3>Item Two</h3>
+                <h4>Item Three</h4>
+            </div>
+        </div>
+        <div class="top-three-card">
+            <div class="card--header">
+                <h1>Top three items</h1>
+            </div>
+            <div class="card--content">
+                <h2>Item One</h2>
+                <h3>Item Two</h3>
+                <h4>Item Three</h4>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

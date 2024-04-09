@@ -6,7 +6,7 @@ from restaurant.models import Ingredient, MenuItem, Purchase
 from django.db.models import Sum
  
 class Dashboard(TemplateView):
-    template_name = "base.html"
+    template_name = "dashboard.html"
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
