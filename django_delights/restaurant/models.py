@@ -29,8 +29,8 @@ class Ingredient(models.Model):
 class Purchase(models.Model):  
     item_amount = models.IntegerField(default=0)
     item_name = models.ForeignKey(MenuItem, on_delete=models.DO_NOTHING)
-    item_price = models.FloatField(default=0, null=True, blank=True)
+    price = models.FloatField(default=0, null=True, blank=True)
     purchase_time = models.DateTimeField()
 
     def __str__(self):
-        return f"{self.item_amount}x {self.item_name} - {self.item_price}€"
+        return f"{self.item_amount}x {self.item_name} - {self.price}€"
