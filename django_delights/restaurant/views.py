@@ -21,13 +21,14 @@ class Dashboard(TemplateView):
                 purchase_amount[purchase[0]] += purchase[1]
 
         top_three_sales = sorted(purchase_amount.items(), key=lambda x: x[1], reverse=True)[:3]
-        revenue = Purchase.objects.aggregate(revenue=Sum("price"))
+        revenue = round(Purchase.objects.aggregate(revenue=Sum("price"))["revenue"], 4)
 
         low_ingredients = {}
-        for ingredient in Ingredient.objects.values_list("ingredient_name", "ingredient_amount"):
+        for ingredient in Ingredient.objects.order_by("ingredient_amount").values_list("ingredient_name", "ingredient_amount"):
             if ingredient[1] < 500:
                 low_ingredients[ingredient[0]] = ingredient[1]
 
         context["top_three_sales"] = top_three_sales
         context["revenue"] = revenue
-        context["low_ingredients"] = low_ingredients
+        context["low_stock_items"] = low_ingredients
+        return context

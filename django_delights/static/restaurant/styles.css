@@ -9,7 +9,7 @@
 
 body {
   min-height: 100vh;
-  background-color: black;
+  background-color: #171a1f;
 }
 
 .header {
@@ -64,21 +64,76 @@ body {
 
 .card--wrapper {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 1rem;
   position: relative;
-  width:50vw;
   flex-wrap: wrap;
+  width:50vw;
+  cursor: default;
 }
 
 .top-three-card {
-  background-color: #31363F;
+  background-color: #007F4F;
   border-radius: 10px;
   padding: 1.2rem;
   width: fit-content;
+  min-width: 300px;
   height: fit-content;
+  transition: all .3s ease-in-out;
 }
 
-h1, h2, h3, h4 {
+.top-three-card:hover{
+  transform: translateY(-5px);
+}
+
+.revenue-card {
+  background-color: #007F4F;
+  border-radius: 10px;
+  padding: 1.2rem;
+  width: fit-content;
+  min-width: 300px;
+  height: fit-content;
+  transition: all .3s ease-in-out;
+}
+
+.revenue-card:hover{
+  transform: translateY(-5px);
+}
+
+.lowstock-card {
+  background-color: #F5503B;
+  border-radius: 10px;
+  padding: 1.2rem;
+  width: fit-content;
+  min-width: 300px;
+  height: fit-content;
+  transition: all .3s ease-in-out;
+}
+
+.lowstock-card:hover{
+  transform: translateY(-5px);
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  position:relative;
+  padding-bottom: 14px;
+}
+
+.card--wrapper h1, h2, h3, h4 {
   color: white;
+}
+
+.card--wrapper h3 {
+  font-size: 20px;
+}
+
+.card--wrapper h4 {
+  font-size: 18px;
+}
+
+.dashboard-title {
+  font-size: 32px;
+  padding-bottom: 5px;
 }
