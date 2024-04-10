@@ -2,61 +2,136 @@
 {% load static %}
 
 {% block content %}
-<div class="card--container">
+
+<div class="dashboard--wrapper">
     <h3 class="dashboard-title">Dashboard</h3>
-    
-    <div class="card--wrapper">
-        <div class="dashboard-card">
-            <div class="top-three-card">
-                <div class="card--header">
-                    <h5 class="card-title">Top three selling items</h5>
+    <div class="card--container">
+        
+        <div class="dashboard--information--area">
+
+            <div class="dashboard-card">
+                <div class="top-three-card">
+                    <div class="card--header">
+                        <h5 class="card-title">Top three selling items</h5>
+                    </div>
+                    <div class="card--content">
+                        {% if top_three_sales|length == 3 %}
+                        <h2>1. {{top_three_sales.0.0}}</h2>
+                        <h3>2. {{top_three_sales.1.0}}</h3>
+                        <h4>3. {{top_three_sales.2.0}}</h4>
+                        {% elif top_three_sales|length == 2 %}
+                        <h2>1. {{top_three_sales.0.0}}</h2>
+                        <h3>2. {{top_three_sales.1.0}}</h3>
+                        {% elif top_three_sales|length == 1 %}
+                        <h2>1. {{top_three_sales.0.0}}</h2>
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="card--content">
-                    {% if top_three_sales|length == 3 %}
-                    <h2>1. {{top_three_sales.0.0}}</h2>
-                    <h3>2. {{top_three_sales.1.0}}</h3>
-                    <h4>3. {{top_three_sales.2.0}}</h4>
-                    {% elif top_three_sales|length == 2 %}
-                    <h2>1. {{top_three_sales.0.0}}</h2>
-                    <h3>2. {{top_three_sales.1.0}}</h3>
-                    {% elif top_three_sales|length == 1 %}
-                    <h2>1. {{top_three_sales.0.0}}</h2>
-                    {% endif %}
+            </div>
+
+            <div class="dashboard-card">
+                <div class="lowstock-card">
+                    <div class="card--header">
+                        <h5 class="card-title">Low Stock Items</h5>
+                    </div>
+                    <div class="card--content">
+                        {% for key, value in low_stock_items.items %}
+                        <h2>{{key}}: {{value}}g</h2>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="dashboard-card">
-            <div class="revenue-card">
-                <div class="card--header">
-                    <h5 class="card-title">Revenue</h5>
-                </div>
-                <div class="card--content">
-                    <h2>{{revenue}} €</h2>
-                </div>
-            </div>
-        </div>
-        <div class="dashboard-card">
-            <div class="lowstock-card">
-                <div class="card--header">
-                    <h5 class="card-title">Low Stock Items</h5>
-                </div>
-                <div class="card--content">
-                    {% for key, value in low_stock_items.items %}
-                    <h2>{{key}}: {{value}}g</h2>
-                    {% endfor %}
+
+        <div class="dashboard--statistics--area">
+
+            <div class="dashboard-card">
+                <div class="revenue-card">
+                    <div class="card--header">
+                        <h5 class="card-title">Revenue</h5>
+                    </div>
+                    <div class="card--content">
+                        <h2>{{revenue}} €</h2>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="dashboard-card">
-            <div class="sales-card">
-                <div class="card--header">
-                    <h5 class="card-title">Sales</h5>
-                </div>
-                <div class="card--content">
-                    <h2>{{sales_count}}</h2>
+
+            <div class="dashboard-card">
+                <div class="sales-card">
+                    <div class="card--header">
+                        <h5 class="card-title">Sales</h5>
+                    </div>
+                    <div class="card--content">
+                        <h2>{{sales_count}}</h2>
+                    </div>
                 </div>
             </div>
+
+            <div class="dashboard-card">
+                <div class="inventory-value-card">
+                    <div class="card--header">
+                        <h5 class="card-title">Current Inventory Value</h5>
+                    </div>
+                    <div class="card--content">
+                        <h2>{{inventory_value}} €</h2>
+                    </div>
+                </div>
+            </div>
+
+            <canvas id="salesPerDayChart"></canvas>
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+            <script>
+                const ctx = document.getElementById('salesPerDayChart');
+
+                new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: {{ sales_per_day.0 | safe }},
+                            datasets: [{
+                                label: '# of Votes',
+                                data: {{ sales_per_day.1 | safe }},
+                                borderWidth: 1,
+                                fill: false,
+                                borderColor: 'white', // Linienfarbe auf weiß setzen
+                                pointBackgroundColor: 'white', // Punktfarbe auf weiß setzen
+                                pointBorderColor: 'white', // Randfarbe der Punkte auf weiß setzen
+                                pointHoverBackgroundColor: 'white', // Hintergrundfarbe der Punkte bei Hover auf weiß setzen
+                                pointHoverBorderColor: 'white' // Randfarbe der Punkte bei Hover auf weiß setzen
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        color: 'white' // Farbe der Y-Achsen-Zahlen auf weiß setzen
+                                    }
+                                },
+                                x: {
+                                    ticks: {
+                                        color: 'white' // Farbe der X-Achsen-Zahlen auf weiß setzen
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: false // Titel ausblenden
+                                },
+                                legend: {
+                                    labels: {
+                                        color: 'white' // Farbe der Legendenbeschriftung auf weiß setzen
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+            </script>
+
         </div>
+
     </div>
 </div>
 {% endblock %}

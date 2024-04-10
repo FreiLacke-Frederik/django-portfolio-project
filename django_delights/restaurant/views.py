@@ -3,7 +3,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 from restaurant.models import Ingredient, MenuItem, Purchase
-from django.db.models import Sum
+from django.db.models import Sum, Count
+from django.db.models.functions import TruncDate
+from datetime import datetime
  
 class Dashboard(TemplateView):
     template_name = "dashboard.html"
@@ -28,11 +30,21 @@ class Dashboard(TemplateView):
         for ingredient in Ingredient.objects.order_by("ingredient_amount").values_list("ingredient_name", "ingredient_amount"):
             if ingredient[1] < 500:
                 low_ingredients[ingredient[0]] = ingredient[1]
+        
+        inventory_value = 0
+        for row in Ingredient.objects.values_list("ingredient_amount", "price_per_kilo"):
+            inventory_value += (row[0]*row[1])/1000
+
+        sales = Purchase.objects.annotate(tag=TruncDate('purchase_time')).values('tag').annotate(gesamtkäufe=Count('id')).order_by('tag')
+        sales_per_day = [[datetime.strftime(sale["tag"], "%d.%m.%Y") for sale in sales], [sale["gesamtkäufe"] for sale in sales]]
+        print(sales_per_day)
 
         context["top_three_sales"] = top_three_sales
         context["revenue"] = revenue
         context["low_stock_items"] = low_ingredients
         context["sales_count"] = sales_count
+        context["inventory_value"] = inventory_value
+        context["sales_per_day"] = sales_per_day
         return context
 
 class Test(TemplateView):

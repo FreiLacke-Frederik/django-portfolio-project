@@ -56,42 +56,61 @@ body {
  width: 100%;
 }
 
-.card--container {
+.dashboard--wrapper {
   position: relative;
   top: 20vh;
   left: 25vw;
-}
-
-.card--wrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  position: relative;
-  flex-wrap: wrap;
-  width:50vw;
-  cursor: default;
 }
 
 .card--wrapper h1, h2, h3, h4 {
   color: white;
 }
 
-.card--wrapper h3 {
-  font-size: 20px;
-}
-
-.card--wrapper h4 {
-  font-size: 18px;
+.card--container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content:flex-start;
+  align-items: flex-start;
+  gap: .5rem;
+  width: 50vw;
 }
 
 .dashboard-card {
   background-color: #007F4F;
   border-radius: 10px;
   padding: 1.2rem;
-  width: fit-content;
-  min-width: 300px;
+  width: 335px;
   height: fit-content;
+  min-width: 300px;
   transition: all .3s ease-in-out;
+}
+
+.dashboard--information--area {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 49%;
+  flex-basis: 32%;
+  gap: 1rem;
+  position: relative;
+  flex-wrap: wrap;
+  width:18vw;
+  height: fit-content;
+  cursor: default;
+}
+
+.dashboard--statistics--area {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 49%;
+  flex-basis: 0%;
+  gap: 1rem;
+  position: relative;
+  flex-wrap: wrap;
+  width:18vw;
+  height: fit-content;
+  cursor: default;
 }
 
 .dashboard-card:hover {
@@ -105,11 +124,14 @@ body {
 .card-title {
   font-size: 15px;
   font-weight: 600;
-  position:relative;
   padding-bottom: 14px;
 }
 
 .dashboard-title {
   font-size: 32px;
   padding-bottom: 5px;
+}
+
+@media screen and (max-width: 1200px) {
+  .dashboard--information--area, .dashboard--statistics--area { flex-basis: 100%; }
 }
