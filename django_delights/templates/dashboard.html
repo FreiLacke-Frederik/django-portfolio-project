@@ -6,39 +6,55 @@
     <h3 class="dashboard-title">Dashboard</h3>
     
     <div class="card--wrapper">
-        <div class="top-three-card">
-            <div class="card--header">
-                <h5 class="card-title">Top three selling items</h5>
-            </div>
-            <div class="card--content">
-                {% if top_three_sales|length == 3 %}
-                <h2>1. {{top_three_sales.0.0}}</h2>
-                <h3>2. {{top_three_sales.1.0}}</h3>
-                <h4>3. {{top_three_sales.2.0}}</h4>
-                {% elif top_three_sales|length == 2 %}
-                <h2>1. {{top_three_sales.0.0}}</h2>
-                <h3>2. {{top_three_sales.1.0}}</h3>
-                {% elif top_three_sales|length == 1 %}
-                <h2>1. {{top_three_sales.0.0}}</h2>
-                {% endif %}
-            </div>
-        </div>
-        <div class="revenue-card">
-            <div class="card--header">
-                <h5 class="card-title">Revenue</h5>
-            </div>
-            <div class="card--content">
-                <h2>{{revenue}} €</h2>
+        <div class="dashboard-card">
+            <div class="top-three-card">
+                <div class="card--header">
+                    <h5 class="card-title">Top three selling items</h5>
+                </div>
+                <div class="card--content">
+                    {% if top_three_sales|length == 3 %}
+                    <h2>1. {{top_three_sales.0.0}}</h2>
+                    <h3>2. {{top_three_sales.1.0}}</h3>
+                    <h4>3. {{top_three_sales.2.0}}</h4>
+                    {% elif top_three_sales|length == 2 %}
+                    <h2>1. {{top_three_sales.0.0}}</h2>
+                    <h3>2. {{top_three_sales.1.0}}</h3>
+                    {% elif top_three_sales|length == 1 %}
+                    <h2>1. {{top_three_sales.0.0}}</h2>
+                    {% endif %}
+                </div>
             </div>
         </div>
-        <div class="lowstock-card">
-            <div class="card--header">
-                <h5 class="card-title">Low Stock Items</h5>
+        <div class="dashboard-card">
+            <div class="revenue-card">
+                <div class="card--header">
+                    <h5 class="card-title">Revenue</h5>
+                </div>
+                <div class="card--content">
+                    <h2>{{revenue}} €</h2>
+                </div>
             </div>
-            <div class="card--content">
-                {% for key, value in low_stock_items.items %}
-                <h2>{{key}}: {{value}}g</h2>
-                {% endfor %}
+        </div>
+        <div class="dashboard-card">
+            <div class="lowstock-card">
+                <div class="card--header">
+                    <h5 class="card-title">Low Stock Items</h5>
+                </div>
+                <div class="card--content">
+                    {% for key, value in low_stock_items.items %}
+                    <h2>{{key}}: {{value}}g</h2>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-card">
+            <div class="sales-card">
+                <div class="card--header">
+                    <h5 class="card-title">Sales</h5>
+                </div>
+                <div class="card--content">
+                    <h2>{{sales_count}}</h2>
+                </div>
             </div>
         </div>
     </div>

@@ -72,55 +72,6 @@ body {
   cursor: default;
 }
 
-.top-three-card {
-  background-color: #007F4F;
-  border-radius: 10px;
-  padding: 1.2rem;
-  width: fit-content;
-  min-width: 300px;
-  height: fit-content;
-  transition: all .3s ease-in-out;
-}
-
-.top-three-card:hover{
-  transform: translateY(-5px);
-}
-
-.revenue-card {
-  background-color: #007F4F;
-  border-radius: 10px;
-  padding: 1.2rem;
-  width: fit-content;
-  min-width: 300px;
-  height: fit-content;
-  transition: all .3s ease-in-out;
-}
-
-.revenue-card:hover{
-  transform: translateY(-5px);
-}
-
-.lowstock-card {
-  background-color: #F5503B;
-  border-radius: 10px;
-  padding: 1.2rem;
-  width: fit-content;
-  min-width: 300px;
-  height: fit-content;
-  transition: all .3s ease-in-out;
-}
-
-.lowstock-card:hover{
-  transform: translateY(-5px);
-}
-
-.card-title {
-  font-size: 15px;
-  font-weight: 600;
-  position:relative;
-  padding-bottom: 14px;
-}
-
 .card--wrapper h1, h2, h3, h4 {
   color: white;
 }
@@ -131,6 +82,31 @@ body {
 
 .card--wrapper h4 {
   font-size: 18px;
+}
+
+.dashboard-card {
+  background-color: #007F4F;
+  border-radius: 10px;
+  padding: 1.2rem;
+  width: fit-content;
+  min-width: 300px;
+  height: fit-content;
+  transition: all .3s ease-in-out;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+}
+
+.dashboard-card:has(> .lowstock-card) {
+  background-color: #F5503B;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  position:relative;
+  padding-bottom: 14px;
 }
 
 .dashboard-title {

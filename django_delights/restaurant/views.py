@@ -22,6 +22,7 @@ class Dashboard(TemplateView):
 
         top_three_sales = sorted(purchase_amount.items(), key=lambda x: x[1], reverse=True)[:3]
         revenue = round(Purchase.objects.aggregate(revenue=Sum("price"))["revenue"], 4)
+        sales_count = Purchase.objects.count()
 
         low_ingredients = {}
         for ingredient in Ingredient.objects.order_by("ingredient_amount").values_list("ingredient_name", "ingredient_amount"):
@@ -31,6 +32,7 @@ class Dashboard(TemplateView):
         context["top_three_sales"] = top_three_sales
         context["revenue"] = revenue
         context["low_stock_items"] = low_ingredients
+        context["sales_count"] = sales_count
         return context
 
 class Test(TemplateView):
