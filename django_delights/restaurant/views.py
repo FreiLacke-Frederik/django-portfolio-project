@@ -1,7 +1,7 @@
 from typing import Any
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from restaurant.models import Ingredient, MenuItem, Purchase
 from django.db.models import Sum, Count
 from django.db.models.functions import TruncDate
@@ -36,8 +36,7 @@ class Dashboard(TemplateView):
             inventory_value += (row[0]*row[1])/1000
 
         sales = Purchase.objects.annotate(tag=TruncDate('purchase_time')).values('tag').annotate(gesamtkäufe=Count('id')).order_by('tag')
-        sales_per_day = [[datetime.strftime(sale["tag"], "%d.%m.%Y") for sale in sales], [sale["gesamtkäufe"] for sale in sales]]
-        print(sales_per_day)
+        sales_per_day = [[datetime.strftime(sale["tag"], "%d. %B") for sale in sales], [sale["gesamtkäufe"] for sale in sales]]
 
         context["top_three_sales"] = top_three_sales
         context["revenue"] = revenue
@@ -47,5 +46,14 @@ class Dashboard(TemplateView):
         context["sales_per_day"] = sales_per_day
         return context
 
-class Test(TemplateView):
-    template_name = "test.html"
+class MenuItemsList(TemplateView):
+    template_name = "menu_item_table.html"
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+
+        menu_items = MenuItem.objects.all()
+
+        context["data"] = menu_items
+
+        return context  

@@ -36,7 +36,7 @@ body {
   position: relative;
   font-size: 18px;
   color: #fff;
-  font-weight: 500;
+  font-weight: 700;
   text-decoration: none;
   margin-left: 40px;
 }
@@ -47,7 +47,7 @@ body {
   top: 100%;
   left: 0;
   width: 0;
-  height: 2px;
+  height: 3px;
   background: #fff;
   transition: .3s;
 }
@@ -68,13 +68,16 @@ body {
 
 .card--container {
   position: relative;
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content:flex-start;
-  align-items: flex-start;
-  gap: .5rem;
+  flex-flow: row wrap;
+  justify-content:space-between;
+  align-items: left;
+  gap: 0rem;
   width: 50vw;
+  flex-basis: 100%;
 }
 
 .dashboard-card {
@@ -83,8 +86,8 @@ body {
   padding: 1.2rem;
   width: 335px;
   height: fit-content;
-  min-width: 300px;
   transition: all .3s ease-in-out;
+  cursor:default
 }
 
 .dashboard--information--area {
@@ -97,20 +100,30 @@ body {
   flex-wrap: wrap;
   width:18vw;
   height: fit-content;
-  cursor: default;
 }
 
 .dashboard--statistics--area {
   display: flex;
   flex-direction: column;
   flex: 0 1 49%;
-  flex-basis: 0%;
+  flex-basis: 32%;
   gap: 1rem;
   position: relative;
   flex-wrap: wrap;
   width:18vw;
   height: fit-content;
-  cursor: default;
+}
+
+.dashboard--charts--area {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 49%;
+  flex-basis: 32%;
+  gap: 1rem;
+  position: relative;
+  flex-wrap: wrap;
+  width:18vw;
+  height: fit-content;
 }
 
 .dashboard-card:hover {
@@ -130,8 +143,72 @@ body {
 .dashboard-title {
   font-size: 32px;
   padding-bottom: 5px;
+  padding-left: 5px;
+}
+
+.dashboard-card:has(> .sales--chart--card){
+  background-color: #6E707B   ;
+}
+
+canvas {
+  background-color: #6E707B   ;
 }
 
 @media screen and (max-width: 1200px) {
   .dashboard--information--area, .dashboard--statistics--area { flex-basis: 100%; }
+}
+
+.content-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  position: relative;
+  top: 25vh;
+  left: 25vw;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.15);
+}
+
+.content-table thead tr {
+  background-color: #007F4F;
+  color: white;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+}
+
+.content-table td {
+  font-weight: 600;
+  color: #171a1f;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #DDDDDD;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #F3F3F3;
+}
+
+.content-table tbody tr:nth-of-type(odd) {
+  background-color: white;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 3px solid #007F4F;
+}
+
+.content-table tbody tr.active-row{
+  font-weight: bold;
+  color: #009879;
+}
+
+.content-table tbody tr td ul {
+  list-style-type: none;
 }

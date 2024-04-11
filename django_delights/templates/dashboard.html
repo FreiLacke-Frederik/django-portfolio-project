@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block head %}
+<title>Dashboard</title>
+{% endblock %}
+
 {% block content %}
 
 <div class="dashboard--wrapper">
@@ -35,9 +39,13 @@
                         <h5 class="card-title">Low Stock Items</h5>
                     </div>
                     <div class="card--content">
+                        {% if low_stock_items|length > 0 %}
                         {% for key, value in low_stock_items.items %}
                         <h2>{{key}}: {{value}}g</h2>
                         {% endfor %}
+                        {% else %}
+                        <h2 id="no-low-stock-warning">-</h2>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -77,58 +85,92 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <canvas id="salesPerDayChart"></canvas>
+        <div class="dashboard--charts--area">
 
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <div class="dashboard-card">
+                <div class="sales--chart--card">
+                    <div class="card--header">
+                        <h5 class="card-title">Sales</h5>
+                    </div>
+                    <div class="card--content">
 
-            <script>
-                const ctx = document.getElementById('salesPerDayChart');
+                        <canvas id="salesPerDayChart"></canvas>
 
-                new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: {{ sales_per_day.0 | safe }},
-                            datasets: [{
-                                label: '# of Votes',
-                                data: {{ sales_per_day.1 | safe }},
-                                borderWidth: 1,
-                                fill: false,
-                                borderColor: 'white', // Linienfarbe auf weiß setzen
-                                pointBackgroundColor: 'white', // Punktfarbe auf weiß setzen
-                                pointBorderColor: 'white', // Randfarbe der Punkte auf weiß setzen
-                                pointHoverBackgroundColor: 'white', // Hintergrundfarbe der Punkte bei Hover auf weiß setzen
-                                pointHoverBorderColor: 'white' // Randfarbe der Punkte bei Hover auf weiß setzen
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    ticks: {
-                                        color: 'white' // Farbe der Y-Achsen-Zahlen auf weiß setzen
-                                    }
-                                },
-                                x: {
-                                    ticks: {
-                                        color: 'white' // Farbe der X-Achsen-Zahlen auf weiß setzen
-                                    }
-                                }
-                            },
-                            plugins: {
-                                title: {
-                                    display: false // Titel ausblenden
-                                },
-                                legend: {
-                                    labels: {
-                                        color: 'white' // Farbe der Legendenbeschriftung auf weiß setzen
-                                    }
-                                }
-                            }
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+                        <script>
+
+                        let noLowStockIndicator = document.getElementById("no-low-stock-warning");
+
+                        if(noLowStockIndicator) {
+                            let lowStockCard = document.querySelector('.dashboard-card:has(> .lowstock-card)');
+                            lowStockCard.style.backgroundColor = "#007F4F";
                         }
-                    });
 
-            </script>
+                        const ctx = document.getElementById('salesPerDayChart');
+                        new Chart(ctx, {
+                                type: 'line',
+                                data: {
+                                    labels: {{ sales_per_day.0 | safe }},
+                                    datasets: [{
+                                        label: '  ',
+                                        data: {{ sales_per_day.1 | safe }},
+                                        borderWidth: 1,
+                                        fill: false,
+                                        borderWidth:7,
+                                        borderColor: 'white', // Linienfarbe auf weiß setzen
+                                        pointBackgroundColor: 'white', // Punktfarbe auf weiß setzen
+                                        pointBorderColor: 'white', // Randfarbe der Punkte auf weiß setzen
+                                        pointHoverBackgroundColor: 'white', // Hintergrundfarbe der Punkte bei Hover auf weiß setzen
+                                        pointHoverBorderColor: 'white' // Randfarbe der Punkte bei Hover auf weiß setzen
+                                    }]
+                                },
+                                options: {
+                                    elements: {
+                                        point: {
+                                            radius: 3
+                                        }
+                                    },
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true,
+                                            gridLines: {
+                                                display: false
+                                            },
+                                            ticks: {
+                                                color: 'white'
+                                            }
+                                        },
+                                        x: {
+                                            gridLines: {
+                                                color: "#FFFFFF"
+                                            },
+                                            ticks: {
+                                                color: 'white',
+                                            }
+                                        }
+                                    },
+                                    tooltips: {
+                                        callbacks: {
+                                            label: function(tooltipItem) {
+                                                    return tooltipItem.yLabel;
+                                                            }
+                                                    }
+                                                },
+                                    plugins: {
+                                        legend: {
+                                            display: false
+                                        }
+                                    }
+                                }
+                        });
+
+                        </script>
+                    </div>
+                </div>
+            </div>
 
         </div>
 

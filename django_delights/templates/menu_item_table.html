@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<title>Menu Items</title>
+{% endblock %}
+
+{% block content %}
+
+<table class="content-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Ingredients</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for menu in data %}
+        <tr>
+            <td>{{ menu.menu_name }}</td>
+            <td>{{ menu.menu_price }} €</td>
+            <td>
+                <ul>
+                    {% for key, value in menu.menu_ingredients.ingredients.items %}
+                    <li>{{key}}: {{value}}g</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr> 
+        {% empty %}
+        <h1>No Menu Items Yet</h1>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
