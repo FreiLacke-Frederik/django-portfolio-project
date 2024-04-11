@@ -204,10 +204,10 @@ canvas {
   border-bottom: 3px solid #007F4F;
 }
 
-.content-table tbody tr.active-row{
-  font-weight: bold;
-  color: #009879;
+.content-table tbody tr:hover {
+  cursor: pointer;
 }
+
 
 .content-table tbody tr td ul {
   list-style-type: none;
