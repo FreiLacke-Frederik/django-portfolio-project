@@ -1,8 +1,9 @@
 from typing import Any
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, UpdateView
 from restaurant.models import Ingredient, MenuItem, Purchase
+from restaurant.forms import MenuItemsUpdateForm
 from django.db.models import Sum, Count
 from django.db.models.functions import TruncDate
 from datetime import datetime
@@ -55,5 +56,37 @@ class MenuItemsList(TemplateView):
         menu_items = MenuItem.objects.all()
 
         context["data"] = menu_items
+        context["columns"] = ["Name", "Price", "Ingredients"]
 
-        return context  
+        return context
+    
+class InventoryList(TemplateView):
+    template_name = "inventory_table.html"
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+
+        inventory_items = Ingredient.objects.all()
+
+        context["data"] = inventory_items
+        context["columns"] = ["Name", "Amount", "Unit", "Price per Kilo"]
+
+        return context
+    
+class PurchaseList(TemplateView):
+    template_name = "purchase_table.html"
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+
+        purchases = Purchase.objects.all()
+
+        context["data"] = purchases
+        context["columns"] = ["Amount", "Name", "Price", "Time"]
+
+        return context
+
+class MenuItemUpdate(UpdateView):
+    template_name = 'menu_item_update_form.html'
+    model = MenuItem
+    form_class = MenuItemsUpdateForm

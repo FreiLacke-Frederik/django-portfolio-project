@@ -7,7 +7,6 @@
 {% endblock %}
 
 {% block content %}
-
 <div class="table--container">
     <table class="content-table">
         <thead>
@@ -18,19 +17,12 @@
             </tr>
         </thead>
         <tbody>
-            {% for menu in data %}
-            <tr class="clickable-row" data-href="{% url 'menu_items_update' menu.id %}">
-                <td>
-                    {{ menu.menu_name }}
-                </td>
-                <td>{{ menu.menu_price }} €</td>
-                <td>
-                    <ul>
-                        {% for key, value in menu.menu_ingredients.ingredients.items %}
-                        <li>{{key}}: {{value}}g</li>
-                        {% endfor %}
-                    </ul>
-                </td>
+            {% for purchase in data %}
+            <tr class="clickable-row" data-href="{% url 'purchases' %}">
+                <td>{{ purchase.item_amount }}x</td>
+                <td>{{ purchase.item_name }}</td>
+                <td>{{ purchase.price }} €</td>
+                <td>{{ purchase.purchase_time }}</td>
             </tr> 
             {% empty %}
             <h1>No Menu Items Yet</h1>

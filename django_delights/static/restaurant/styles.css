@@ -158,14 +158,19 @@ canvas {
   .dashboard--information--area, .dashboard--statistics--area { flex-basis: 100%; }
 }
 
+.table--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  min-height: 100vh;
+}
+
 .content-table {
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 0.9em;
   min-width: 400px;
-  position: relative;
-  top: 25vh;
-  left: 20vw;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0,0,0,0.15);
 }
