@@ -1,9 +1,11 @@
 $("tr").not(':first').hover(
     function () {
-      $(this).css("background","#d9d9d9");
+      $(this).css("background","#FFFFFF");
+      $(this).find("td").css("color","#171A1F");
     }, 
     function () {
       $(this).css("background","");
+      $(this).find("td").css("color","");
     }
   );
 

@@ -165,49 +165,40 @@ canvas {
   min-width: 400px;
   position: relative;
   top: 25vh;
-  left: 25vw;
-  border-radius: 5px 5px 0 0;
+  left: 20vw;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0,0,0,0.15);
 }
 
 .content-table thead tr {
-  background-color: #007F4F;
+  background-color: #171a1f;
   color: white;
   text-align: left;
   font-weight: bold;
+  font-size: 22px;
+  cursor: default;
 }
 
 .content-table th,
 .content-table td {
   padding: 12px 15px;
+  border: 4px solid white;
+  width: 400px;
 }
 
 .content-table td {
   font-weight: 600;
-  color: #171a1f;
+  color: white;
 }
 
 .content-table tbody tr {
-  border-bottom: 1px solid #DDDDDD;
-}
-
-.content-table tbody tr:nth-of-type(even) {
-  background-color: #F3F3F3;
-}
-
-.content-table tbody tr:nth-of-type(odd) {
-  background-color: white;
-}
-
-.content-table tbody tr:last-of-type {
-  border-bottom: 3px solid #007F4F;
+  background-color: #171a1f;
+  font-size: 15px;
 }
 
 .content-table tbody tr:hover {
   cursor: pointer;
 }
-
 
 .content-table tbody tr td ul {
   list-style-type: none;
