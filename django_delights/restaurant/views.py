@@ -7,6 +7,8 @@ from restaurant.forms import MenuItemsUpdateForm
 from django.db.models import Sum, Count
 from django.db.models.functions import TruncDate
 from datetime import datetime
+import json
+import re
  
 class Dashboard(TemplateView):
     template_name = "dashboard.html"
@@ -86,7 +88,25 @@ class PurchaseList(TemplateView):
 
         return context
 
-class MenuItemUpdate(UpdateView):
-    template_name = 'menu_item_update_form.html'
-    model = MenuItem
-    form_class = MenuItemsUpdateForm
+def MenuItemUpdate(request, pk):
+    form = MenuItemsUpdateForm
+    objects = MenuItem.objects.get(pk=pk)
+    context = {"form": form, "fields": objects}
+    
+    if request.method == 'POST':
+        query_dict_formatted = request.POST.copy()
+        result = {"ingredients": {}}
+
+        for i in range(0, len(temp:=re.split('\s+', query_dict_formatted["menu_ingredients"].strip().replace(":", ""))), 2):
+            result["ingredients"][temp[i]] = temp[i+1] if not temp[i+1].endswith("g") else temp[i+1][:-1]
+
+        query_dict_formatted["menu_ingredients"] = result
+
+        form = MenuItemsUpdateForm(query_dict_formatted)
+
+        if form.is_valid():
+            for field_name, value in query_dict_formatted.items():
+                setattr(objects, field_name, value)
+            objects.save()
+
+    return render(request, 'menu_item_update_form.html', context)

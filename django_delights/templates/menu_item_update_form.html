@@ -1,9 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="" method="POST">
-  {% csrf_token %}
-  <label for="id_menu_name"
-  <input type="submit" />
-</form>
+<div class="menu-items-form-container">
+  <div class="form--form--container">
+    <form action="" method="POST">
+      {% csrf_token %}
+      <p>
+        <label class="form--heading" for="id_menu_name">Name</label>
+        <input class="form--inputbox" type="text" name="menu_name" maxlength="100" required="" id="id_menu_name" value="{{fields.menu_name}}">
+      </p>
+
+      <p>
+        <label class="form--heading" for="id_menu_price">Price</label>
+        <input class="form--inputbox" type="number" name="menu_price" step="any" required="" id="id_menu_price" value="{{fields.menu_price}}">
+      </p>
+
+      <p>
+        <label class="form--heading" for="id_menu_ingredients">Ingredients</label>
+        <textarea class="form--inputbox" name="menu_ingredients" cols="40" rows="10" required="" id="id_menu_ingredients">{% for key, value in fields.menu_ingredients.ingredients.items %}{{key}}: {{value}}g
+    {% endfor %} 
+        </textarea> <!-- Muss so im Code platziert werden damit es richtig in der textarea angezeigt wird -->
+      </p>  
+    </form>
+  </div>
+  
+  <div class="form--button--container">
+    <input class="form--submitbutton" type="submit" value="Save Menu"/>
+    <button class="menu--deletebutton">Delete Menu</button>
+  </div>
+</div>
 {% endblock %}
