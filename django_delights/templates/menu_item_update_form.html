@@ -1,9 +1,26 @@
 {% extends 'base.html' %}
 
+{% block head %}
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+  var form = document.getElementById('menu-item-form');
+  var submitButton = document.getElementsByClassName('form--submitbutton')[0];
+
+  // Überprüfe Änderungen im Formular
+  form.addEventListener('change', function(event) {
+    // Aktiviere den Button, wenn sich das Formular ändert
+    submitButton.disabled = false;
+    submitButton.style.backgroundColor = "#007F4F"
+    submitButton.style.border = "2px solid #007F4F"
+  });
+});
+</script>
+{% endblock %}
+
 {% block content %}
 <div class="menu-items-form-container">
   <div class="form--form--container">
-    <form action="" method="POST">
+    <form id="menu-item-form" action="" method="POST">
       {% csrf_token %}
       <p>
         <label class="form--heading" for="id_menu_name">Name</label>
@@ -25,7 +42,7 @@
   </div>
   
   <div class="form--button--container">
-    <input class="form--submitbutton" type="submit" value="Save Menu"/>
+    <input class="form--submitbutton" type="submit" value="Save Menu" disabled/>
     <button class="menu--deletebutton">Delete Menu</button>
   </div>
 </div>

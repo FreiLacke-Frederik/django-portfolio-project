@@ -223,8 +223,8 @@ canvas {
 
 .form--submitbutton {
   appearance: none;
-  background-color: #007F4F;
-  border: 2px solid #007F4F;
+  background-color: #6E707B;
+  border: 2px solid #6E707B;
   border-radius: 15px;
   box-sizing: border-box;
   color: #FFFFFF;
@@ -316,6 +316,7 @@ canvas {
 .form--button--container {
   position: relative;
   left: 10vw;
+  top: 3.5vh
 }
 
 .form--heading {
