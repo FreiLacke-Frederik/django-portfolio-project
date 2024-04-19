@@ -13,6 +13,10 @@
     submitButton.style.backgroundColor = "#007F4F"
     submitButton.style.border = "2px solid #007F4F"
   });
+
+  document.querySelector('.form--submitbutton').addEventListener('click', function() {
+    document.getElementById('menu-item-form').submit();
+  });
 });
 </script>
 {% endblock %}
@@ -43,7 +47,7 @@
   
   <div class="form--button--container">
     <input class="form--submitbutton" type="submit" value="Save Menu" disabled/>
-    <button class="menu--deletebutton">Delete Menu</button>
+    <a href="{% url 'menu_item_delete' pk%}" class="menu--deletebutton">Delete Menu</a>
   </div>
 </div>
 {% endblock %}

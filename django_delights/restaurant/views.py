@@ -1,5 +1,5 @@
 from typing import Any
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView, UpdateView
 from restaurant.models import Ingredient, MenuItem, Purchase
@@ -7,6 +7,7 @@ from restaurant.forms import MenuItemsUpdateForm
 from django.db.models import Sum, Count
 from django.db.models.functions import TruncDate
 from datetime import datetime
+from django.urls import reverse
 import json
 import re
  
@@ -20,8 +21,10 @@ class Dashboard(TemplateView):
 
         purchase_amount = {}
         for purchase in Purchase.objects.all().select_related('item_name').values_list('item_name__menu_name', 'item_amount'):
-            if purchase[0] not in purchase_amount.keys():
+            if purchase[0] not in purchase_amount.keys() and purchase[0] != None:
                 purchase_amount[purchase[0]] = purchase[1]
+            elif purchase[0] == None:
+                pass
             else:
                 purchase_amount[purchase[0]] += purchase[1]
 
@@ -88,10 +91,10 @@ class PurchaseList(TemplateView):
 
         return context
 
-def MenuItemUpdate(request, pk):
+def menu_item_update(request, pk):
     form = MenuItemsUpdateForm
     objects = MenuItem.objects.get(pk=pk)
-    context = {"form": form, "fields": objects}
+    context = {"form": form, "fields": objects, "pk": pk}
     
     if request.method == 'POST':
         query_dict_formatted = request.POST.copy()
@@ -110,3 +113,9 @@ def MenuItemUpdate(request, pk):
             objects.save()
 
     return render(request, 'menu_item_update_form.html', context)
+
+def menu_item_delete(request, pk):
+    menu_item = get_object_or_404(MenuItem, pk=pk)
+    menu_item.delete()
+    
+    return redirect('menu_items')
