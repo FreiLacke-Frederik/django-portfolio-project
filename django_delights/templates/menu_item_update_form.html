@@ -38,8 +38,9 @@
 
       <p>
         <label class="form--heading" for="id_menu_ingredients">Ingredients</label>
-        <textarea class="form--inputbox" name="menu_ingredients" cols="40" rows="10" required="" id="id_menu_ingredients">{% for key, value in fields.menu_ingredients.ingredients.items %}{{key}}: {{value}}g
-    {% endfor %} 
+        <textarea class="form--inputbox" name="menu_ingredients" cols="40" rows="10" required="" id="id_menu_ingredients">
+{% for key, value in fields.menu_ingredients.ingredients.items %}{{key}}: {{value}}g
+{% endfor %} 
         </textarea> <!-- Muss so im Code platziert werden damit es richtig in der textarea angezeigt wird -->
       </p>  
     </form>

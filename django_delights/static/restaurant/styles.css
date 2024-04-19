@@ -331,12 +331,16 @@ canvas {
   text-align: left;
   font-size: 24px;
   font-weight: 600;
-  text-indent: 20px;
   background-color: transparent;
   border-radius: 20px;
   border: 4px solid white;
   color: white;
   margin-bottom: 40px;
+  padding-left: 20px;
+}
+
+#id_menu_ingredients {
+  padding-top: 10px;
 }
 
 .form--inputbox[type=number]::-webkit-outer-spin-button,
