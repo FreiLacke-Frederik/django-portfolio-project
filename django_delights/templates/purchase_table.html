@@ -18,7 +18,7 @@
         </thead>
         <tbody>
             {% for purchase in data %}
-            <tr class="clickable-row" data-href="{% url 'purchases' %}">
+            <tr class="clickable-row" data-href="{% url 'purchase_update' purchase.id %}">
                 <td>{{ purchase.item_amount }}x</td>
                 {% if purchase.item_name != None %}
                 <td>{{ purchase.item_name }}</td>

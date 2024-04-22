@@ -215,7 +215,7 @@ canvas {
   list-style-type: none;
 }
 
-.menu-items-form-container, .ingredient-form-container {
+.menu-items-form-container, .ingredient-form-container, .purchase-form-container {
   position: relative;
   top: 20vh;
   left: 20vw;

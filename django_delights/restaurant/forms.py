@@ -10,3 +10,8 @@ class InventoryUpdateForm(forms.ModelForm):
     class Meta:
         model = Ingredient
         fields = "__all__"
+
+class PurchaseUpdateForm(forms.ModelForm):
+    class Meta: 
+        model = Purchase
+        fields = ["item_amount", "item_name", "price"]

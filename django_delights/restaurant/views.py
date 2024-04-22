@@ -3,18 +3,27 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView, UpdateView
 from restaurant.models import Ingredient, MenuItem, Purchase
-from restaurant.forms import MenuItemsUpdateForm, InventoryUpdateForm
+from restaurant.forms import MenuItemsUpdateForm, InventoryUpdateForm, PurchaseUpdateForm
 from django.db.models import Sum, Count
 from django.db.models.functions import TruncDate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import datetime
 from django.urls import reverse
 import json
 import re
- 
-class Dashboard(TemplateView):
+
+def authentication(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    else:
+        return render(request, "test.html")
+
+class Dashboard(LoginRequiredMixin, TemplateView):
     template_name = "dashboard.html"
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+
         context = super().get_context_data(**kwargs)
 
         purchases = Purchase.objects.all()
@@ -92,9 +101,8 @@ class PurchaseList(TemplateView):
         return context
 
 def menu_item_update(request, pk):
-    form = MenuItemsUpdateForm
     objects = MenuItem.objects.get(pk=pk)
-    context = {"form": form, "fields": objects, "pk": pk}
+    context = {"form": MenuItemsUpdateForm, "fields": objects, "pk": pk}
     
     if request.method == 'POST':
         query_dict_formatted = request.POST.copy()
@@ -121,9 +129,8 @@ def menu_item_delete(request, pk):
     return redirect('menu_items')
 
 def ingredient_update(request, pk):
-    form = InventoryUpdateForm
     objects = Ingredient.objects.get(pk=pk)
-    context = {"form": form, "fields": objects, "pk": pk}
+    context = {"form": InventoryUpdateForm, "fields": objects, "pk": pk}
 
     if request.method == 'POST':
         form = InventoryUpdateForm(request.POST)
@@ -140,3 +147,20 @@ def ingredient_delete(request, pk):
     ingredient.delete()
 
     return redirect('inventory')
+
+def purchase_update(request, pk):
+    objects = Purchase.objects.get(pk=pk)
+    context = {"form": PurchaseUpdateForm, "fields": objects, "pk": pk}
+
+    if request.method == 'POST':
+        form = PurchaseUpdateForm(request.POST)
+
+        if form.is_valid():
+            for field_name, value in request.POST.items():
+                setattr(objects, field_name, value)
+            objects.save()
+    
+    return render(request, 'purchase_update_form.html', context)
+
+def purchase_delete(request, pk):
+    pass
