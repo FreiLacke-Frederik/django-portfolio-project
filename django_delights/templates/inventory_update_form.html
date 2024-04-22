@@ -3,7 +3,7 @@
 {% block head %}
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function() {
-  var form = document.getElementById('menu-item-form');
+  var form = document.getElementById('ingredient-form');
   var submitButton = document.getElementsByClassName('form--submitbutton')[0];
 
   // Überprüfe Änderungen im Formular
@@ -15,7 +15,7 @@
   });
 
   document.querySelector('.form--submitbutton').addEventListener('click', function() {
-    document.getElementById('menu-item-form').submit();
+    document.getElementById('ingredient-form').submit();
   });
 });
 </script>
@@ -24,7 +24,7 @@
 {% block content %}
 <div class="ingredient-form-container">
   <div class="form--form--container">
-    <form id="menu-item-form" action="" method="POST">
+    <form id="ingredient-form" action="" method="POST">
       {% csrf_token %}
       <p>
         <label class="form--heading" for="id_ingredient_name">Name</label>

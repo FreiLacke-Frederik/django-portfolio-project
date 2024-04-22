@@ -49,7 +49,8 @@ class Dashboard(LoginRequiredMixin, TemplateView):
         inventory_value = 0
         for row in Ingredient.objects.values_list("ingredient_amount", "price_per_kilo"):
             inventory_value += (row[0]*row[1])/1000
-
+        inventory_value = round(inventory_value, 2)
+        
         sales = Purchase.objects.annotate(tag=TruncDate('purchase_time')).values('tag').annotate(gesamtkäufe=Count('id')).order_by('tag')
         sales_per_day = [[datetime.strftime(sale["tag"], "%d. %B") for sale in sales], [sale["gesamtkäufe"] for sale in sales]]
 
@@ -154,13 +155,19 @@ def purchase_update(request, pk):
 
     if request.method == 'POST':
         form = PurchaseUpdateForm(request.POST)
-
+        print("post")
+        print(form)
         if form.is_valid():
+            print("valid")
             for field_name, value in request.POST.items():
-                setattr(objects, field_name, value)
+                if field_name != "item_name":
+                    setattr(objects, field_name, value)
             objects.save()
     
     return render(request, 'purchase_update_form.html', context)
 
 def purchase_delete(request, pk):
-    pass
+    purchase = get_object_or_404(Purchase, pk=pk)
+    purchase.delete()
+
+    return redirect('purchases')
