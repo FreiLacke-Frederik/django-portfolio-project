@@ -18,7 +18,7 @@
         </thead>
         <tbody>
             {% for ingredient in data %}
-            <tr class="clickable-row" data-href="{% url 'inventory' %}">
+            <tr class="clickable-row" data-href="{% url 'ingredient_update' ingredient.id %}">
                 <td>{{ ingredient.ingredient_name }}</td>
                 <td>{{ ingredient.ingredient_amount }}</td>
                 <td>{{ ingredient.ingredient_unit }}</td>

@@ -5,3 +5,8 @@ class MenuItemsUpdateForm(forms.ModelForm):
     class Meta:
         model = MenuItem
         fields = "__all__"
+
+class InventoryUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Ingredient
+        fields = "__all__"

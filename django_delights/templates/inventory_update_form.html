@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+  var form = document.getElementById('menu-item-form');
+  var submitButton = document.getElementsByClassName('form--submitbutton')[0];
+
+  // Überprüfe Änderungen im Formular
+  form.addEventListener('change', function(event) {
+    // Aktiviere den Button, wenn sich das Formular ändert
+    submitButton.disabled = false;
+    submitButton.style.backgroundColor = "#007F4F"
+    submitButton.style.border = "2px solid #007F4F"
+  });
+
+  document.querySelector('.form--submitbutton').addEventListener('click', function() {
+    document.getElementById('menu-item-form').submit();
+  });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="ingredient-form-container">
+  <div class="form--form--container">
+    <form id="menu-item-form" action="" method="POST">
+      {% csrf_token %}
+      <p>
+        <label class="form--heading" for="id_ingredient_name">Name</label>
+        <input class="form--inputbox" type="text" name="ingredient_name" maxlength="100" required="" id="id_ingredient_name" value="{{fields.ingredient_name}}">
+      </p>
+
+      <p>
+        <label class="form--heading" for="id_ingredient_amount">Amount</label>
+        <input class="form--inputbox" type="number" name="ingredient_amount" step="any" required="" id="id_ingredient_amount" value="{{fields.ingredient_amount}}">
+      </p>
+
+      <p>
+        <label class="form--heading" for="id_ingredient_unit">Unit</label>
+        <input class="form--inputbox" type="text" name="ingredient_unit" maxlength="50" required="" id="id_ingredient_unit" value="{{fields.ingredient_unit}}" readonly>
+      </p>
+
+      <p>
+        <label class="form--heading" for="id_price_per_kilo">Amount</label>
+        <input class="form--inputbox" type="number" name="price_per_kilo" step="any" required="" id="id_price_per_kilo" value="{{fields.price_per_kilo}}">
+      </p>
+    </form>
+  </div>
+  
+  <div class="form--button--container">
+    <input class="form--submitbutton" type="submit" value="Save Ingredient" disabled/>
+    <a href="{% url 'ingredient_delete' pk %}" class="entry--deletebutton">Delete Ingredient</a>
+  </div>
+</div>
+{% endblock %}

@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView, UpdateView
 from restaurant.models import Ingredient, MenuItem, Purchase
-from restaurant.forms import MenuItemsUpdateForm
+from restaurant.forms import MenuItemsUpdateForm, InventoryUpdateForm
 from django.db.models import Sum, Count
 from django.db.models.functions import TruncDate
 from datetime import datetime
@@ -119,3 +119,24 @@ def menu_item_delete(request, pk):
     menu_item.delete()
     
     return redirect('menu_items')
+
+def ingredient_update(request, pk):
+    form = InventoryUpdateForm
+    objects = Ingredient.objects.get(pk=pk)
+    context = {"form": form, "fields": objects, "pk": pk}
+
+    if request.method == 'POST':
+        form = InventoryUpdateForm(request.POST)
+
+        if form.is_valid():
+            for field_name, value in request.POST.items():
+                setattr(objects, field_name, value)
+            objects.save()
+
+    return render(request, 'inventory_update_form.html', context)
+
+def ingredient_delete(request, pk):
+    ingredient = get_object_or_404(Ingredient, pk=pk)
+    ingredient.delete()
+
+    return redirect('inventory')
