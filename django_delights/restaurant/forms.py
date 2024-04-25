@@ -16,7 +16,17 @@ class InventoryUpdateForm(forms.ModelForm):
         model = Ingredient
         fields = "__all__"
 
+class InventoryCreateForm(forms.ModelForm):
+    class Meta:
+        model = Ingredient
+        fields = "__all__"
+
 class PurchaseUpdateForm(forms.ModelForm):
     class Meta: 
         model = Purchase
         fields = ["item_amount", "price"]
+
+class PurchaseCreateForm(forms.ModelForm):
+    class Meta:
+            model = Purchase
+            fields = "__all__"

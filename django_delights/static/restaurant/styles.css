@@ -219,7 +219,7 @@ canvas {
 .menu-items-form-container, .ingredient-form-container, .purchase-form-container {
   position: relative;
   top: 20vh;
-  left: 20vw;
+  left: 27vw;
   display: flex;
   flex-wrap: wrap;
 }
@@ -353,7 +353,7 @@ canvas {
   margin-bottom: 10px;
 }
 
-.form--inputbox {
+.form--inputbox  {
   text-align: left;
   font-size: 24px;
   font-weight: 600;
@@ -363,6 +363,28 @@ canvas {
   color: white;
   margin-bottom: 40px;
   padding-left: 20px;
+}
+
+.menus--dropdown {
+  text-align: left;
+  font-size: 24px;
+  font-weight: 600;
+  background-color: transparent;
+  border-radius: 20px;
+  border: 4px solid white;
+  color: white;
+  margin-bottom: 40px;
+  padding-left: 20px;
+  width: 350px;
+}
+
+.menus--dropdown option {
+  background-color: #171a1f;
+  font-weight: 500;
+}
+
+.menus--dropdown:focus {
+  outline: none;
 }
 
 #id_menu_ingredients {
@@ -381,6 +403,5 @@ canvas {
 
 .create--entry--button {
   position: relative;
-  align-self: flex-start;
-  left: 22vw;
 }
+

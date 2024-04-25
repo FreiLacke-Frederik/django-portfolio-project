@@ -11,8 +11,10 @@ urlpatterns=[
     path('inventory/', views.InventoryList.as_view(), name='inventory'),
     path('ingredients/<int:pk>', views.ingredient_update, name='ingredient_update'),
     path('ingredients/delete/<int:pk>', views.ingredient_delete, name='ingredient_delete'),
+    path('ingredients/create', views.ingredient_create, name='ingredient_create'),
     path('purchases/', views.PurchaseList.as_view(), name='purchases'),
     path('purchases/<int:pk>', views.purchase_update, name='purchase_update'),
     path('purchases/delete/<int:pk>', views.purchase_delete, name='purchase_delete'),
+    path('purchases/create', views.purchase_create, name='purchase_create'),
     path('__reload__/', include("django_browser_reload.urls")),
 ]

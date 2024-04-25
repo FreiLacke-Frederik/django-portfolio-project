@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView, UpdateView
 from restaurant.models import Ingredient, MenuItem, Purchase
-from restaurant.forms import MenuItemsUpdateForm, MenuItemsCreateForm, InventoryUpdateForm, PurchaseUpdateForm
+from restaurant.forms import MenuItemsUpdateForm, MenuItemsCreateForm, InventoryUpdateForm, InventoryCreateForm, PurchaseUpdateForm, PurchaseCreateForm
 from django.db.models import Sum, Count
 from django.db.models.functions import TruncDate
 from django.contrib.auth.decorators import login_required
@@ -97,7 +97,7 @@ class PurchaseList(TemplateView):
         purchases = Purchase.objects.all()
 
         context["data"] = purchases
-        context["columns"] = ["Amount", "Name", "Price", "Time"]
+        context["columns"] = ["Amount", "Menu", "Price", "Time"]
 
         return context
 
@@ -174,6 +174,20 @@ def ingredient_delete(request, pk):
 
     return redirect('inventory')
 
+def ingredient_create(request):
+
+    if request.method == 'POST':
+        form = InventoryCreateForm(request.POST)
+        
+        if form.is_valid():
+            queryset_formatted = {obj: request.POST[obj] for obj in request.POST if obj != "csrfmiddlewaretoken"}
+            new_entry = Ingredient.objects.create(**queryset_formatted)
+
+            return redirect('inventory')
+        else:
+            print("Invalid form")
+    return render(request, 'inventory_create.html')
+
 def purchase_update(request, pk):
     objects = Purchase.objects.get(pk=pk)
     context = {"form": PurchaseUpdateForm, "fields": objects, "pk": pk}
@@ -196,3 +210,9 @@ def purchase_delete(request, pk):
     purchase.delete()
 
     return redirect('purchases')
+
+def purchase_create(request):
+    menus = MenuItem.objects.values("menu_name")
+    context = {"menus": menus}
+
+    return render(request, 'purchase_create.html', context)

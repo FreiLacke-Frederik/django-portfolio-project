@@ -28,28 +28,28 @@
       {% csrf_token %}
       <p>
         <label class="form--heading" for="id_item_amount">Amount</label>
-        <input class="form--inputbox" type="number" name="item_amount" maxlength="100" required="" id="id_item_amount" value="{{fields.item_amount}}">
+        <input class="form--inputbox" type="number" name="item_amount" maxlength="100" required="" id="id_item_amount" value="">
       </p>
 
       <p>
         <label class="form--heading" for="id_item_name">Menu</label>
-        {% if fields.item_name != None %}
-        <input class="form--inputbox" type="text" name="item_name" step="any" required="" id="id_item_name" value="{{fields.item_name}}" readonly>
-        {% else %}
-        <input class="form--inputbox" type="text" name="item_name" step="any" required="" id="id_item_name" value="{{fields.pre_delete_item_name}}" readonly>
-        {% endif %}
+        <select class="menus--dropdown" id="id_item_name" name="item_name">
+            {% for menu in menus %}
+            <option value="{{ menu.menu_name }}">{{ menu.menu_name }}</option>
+            {% endfor %}
+        </select>
       </p>
 
       <p>
         <label class="form--heading" for="id_price">Price</label>
-        <input class="form--inputbox" type="number" name="price" maxlength="50" required="" id="id_price" value="{{fields.price}}">
+        <input class="form--inputbox" type="number" name="price" maxlength="50" required="" id="id_price" value="">
       </p>
     </form>
   </div>
   
   <div class="form--button--container">
-    <input class="form--submitbutton" type="submit" value="Save Purchase" disabled/>
-    <a href="{% url 'purchase_delete' pk %}" class="entry--deletebutton">Delete Purchase</a>
+    <input class="form--submitbutton" type="submit" value="Add Purchase" disabled/>
+    <a href="{% url 'purchases' %}" class="entry--deletebutton">Cancel</a>
   </div>
 </div>
 {% endblock %}
