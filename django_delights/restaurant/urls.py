@@ -7,6 +7,7 @@ urlpatterns=[
     path('menu-items/', views.MenuItemsList.as_view(), name='menu_items'),
     path('menu-items/<int:pk>', views.menu_item_update, name='menu_items_update'),
     path('menu-items/delete/<int:pk>', views.menu_item_delete, name='menu_item_delete'),
+    path('menu-items/create/', views.menu_item_create, name='menu_items_create'),
     path('inventory/', views.InventoryList.as_view(), name='inventory'),
     path('ingredients/<int:pk>', views.ingredient_update, name='ingredient_update'),
     path('ingredients/delete/<int:pk>', views.ingredient_delete, name='ingredient_delete'),

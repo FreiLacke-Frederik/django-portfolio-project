@@ -266,7 +266,7 @@ canvas {
   transform: translateY(0);
 }
 
-.entry--deletebutton {
+.entry--deletebutton, .cancel--create--button {
   appearance: none;
   background-color: #F5503B;
   border: 2px solid #F5503B;

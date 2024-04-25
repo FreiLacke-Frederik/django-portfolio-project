@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView, UpdateView
 from restaurant.models import Ingredient, MenuItem, Purchase
-from restaurant.forms import MenuItemsUpdateForm, InventoryUpdateForm, PurchaseUpdateForm
+from restaurant.forms import MenuItemsUpdateForm, MenuItemsCreateForm, InventoryUpdateForm, PurchaseUpdateForm
 from django.db.models import Sum, Count
 from django.db.models.functions import TruncDate
 from django.contrib.auth.decorators import login_required
@@ -50,7 +50,7 @@ class Dashboard(LoginRequiredMixin, TemplateView):
         for row in Ingredient.objects.values_list("ingredient_amount", "price_per_kilo"):
             inventory_value += (row[0]*row[1])/1000
         inventory_value = round(inventory_value, 2)
-        
+
         sales = Purchase.objects.annotate(tag=TruncDate('purchase_time')).values('tag').annotate(gesamtkäufe=Count('id')).order_by('tag')
         sales_per_day = [[datetime.strftime(sale["tag"], "%d. %B") for sale in sales], [sale["gesamtkäufe"] for sale in sales]]
 
@@ -128,6 +128,30 @@ def menu_item_delete(request, pk):
     menu_item.delete()
     
     return redirect('menu_items')
+
+def menu_item_create(request):
+
+    if request.method == 'POST':
+        query_dict_formatted = request.POST.copy()
+        result = {"ingredients": {}}
+
+        for i in range(0, len(temp:=re.split('\s+', request.POST["menu_ingredients"].strip().replace(":", ""))), 2):
+            result["ingredients"][temp[i]] = temp[i+1] if not temp[i+1].endswith("g") else temp[i+1][:-1]
+
+        query_dict_formatted["menu_ingredients"] = result
+        
+        form = MenuItemsCreateForm(query_dict_formatted)
+
+        if form.is_valid():
+            new_data = {}
+            for key in query_dict_formatted:
+                if key != "csrfmiddlewaretoken":
+                    new_data[key] = query_dict_formatted[key]
+            
+            new_entry = MenuItem.objects.create(**new_data)
+
+            return redirect('menu_items')
+    return render(request, 'menu_item_create.html')
 
 def ingredient_update(request, pk):
     objects = Ingredient.objects.get(pk=pk)
