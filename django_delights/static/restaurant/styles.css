@@ -166,6 +166,7 @@ canvas {
   justify-content: center;
   align-items: center;
   text-align: left;
+  flex-direction: column;
   top: 20vh;
   position: relative;
   height: fit-content;
@@ -251,16 +252,44 @@ canvas {
   position: relative;
 }
 
-.form--submitbutton:disabled {
+.create--entry--button {
+  appearance: none;
+  background-color: #007F4F;
+  border: 2px solid #007F4F;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 60px;
+  min-width: 140px;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  will-change: transform;
+  position: relative;
+}
+
+.form--submitbutton:disabled, .create--entry--button:disabled {
   pointer-events: none;
 }
 
-.form--submitbutton:hover {
+.form--submitbutton:hover, .create--entry--button:hover {
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
   transform: translateY(-2px);
 }
 
-.form--submitbutton:active {
+.form--submitbutton:active, .create--entry--button:active {
   justify-content: flex-end;
   box-shadow: none;
   transform: translateY(0);
@@ -295,16 +324,16 @@ canvas {
   left: 1vw;
 }
 
-.entry--deletebutton:disabled {
+.entry--deletebutton:disabled, .cancel--create--button:disabled {
   pointer-events: none;
 }
 
-.entry--deletebutton:hover {
+.entry--deletebutton:hover, .cancel--create--button:hover {
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
   transform: translateY(-2px);
 }
 
-.entry--deletebutton:active {
+.entry--deletebutton:active, .cancel--create--button:active {
   justify-content: flex-end;
   box-shadow: none;
   transform: translateY(0);
@@ -348,4 +377,10 @@ canvas {
 
 .form--inputbox:focus {
   outline: none;
+}
+
+.create--entry--button {
+  position: relative;
+  align-self: flex-start;
+  left: 22vw;
 }

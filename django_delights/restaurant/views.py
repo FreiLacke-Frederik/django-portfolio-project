@@ -151,6 +151,7 @@ def menu_item_create(request):
             new_entry = MenuItem.objects.create(**new_data)
 
             return redirect('menu_items')
+        
     return render(request, 'menu_item_create.html')
 
 def ingredient_update(request, pk):
