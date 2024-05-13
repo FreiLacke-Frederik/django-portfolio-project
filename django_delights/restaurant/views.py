@@ -220,6 +220,7 @@ def purchase_create(request):
         
         if form.is_valid():
             selected_menu_id = request.POST.get("item_name")
+            amount_purchased = request.POST.get("item_amount")
             menu_item = MenuItem.objects.get(pk=selected_menu_id)
             menu_ingredients = menu_item.menu_ingredients
             purchase_legitimate = True
@@ -235,7 +236,12 @@ def purchase_create(request):
                 queryset_formatted["purchase_time"] = datetime.now()
                 new_entry = Purchase.objects.create(**queryset_formatted)
 
-                return redirect('inventory')
+                for ingredient, ingredient_amount in menu_ingredients["ingredients"].items():
+                    inventory_ingredient = Ingredient.objects.get(ingredient_name=ingredient)
+                    inventory_ingredient.ingredient_amount -= (float(ingredient_amount)*float(amount_purchased))
+                    inventory_ingredient.save()
+
+                return redirect('purchases')
             
             elif not purchase_legitimate:
                 print("Insert code here to notify user that purchase could no be added due to low ingredients")
