@@ -230,7 +230,13 @@ def purchase_create(request):
                     break
             
             if purchase_legitimate:
-                print("Insert code here to add purchase to the model")
+                queryset_formatted = {obj: request.POST[obj] for obj in request.POST if obj != "csrfmiddlewaretoken"}
+                queryset_formatted["item_name"] = MenuItem.objects.get(pk=queryset_formatted["item_name"])
+                queryset_formatted["purchase_time"] = datetime.now()
+                new_entry = Purchase.objects.create(**queryset_formatted)
+
+                return redirect('inventory')
+            
             elif not purchase_legitimate:
                 print("Insert code here to notify user that purchase could no be added due to low ingredients")
 
