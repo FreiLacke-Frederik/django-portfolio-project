@@ -35,7 +35,7 @@
         <label class="form--heading" for="id_item_name">Menu</label>
         <select class="menus--dropdown" id="id_item_name" name="item_name">
             {% for menu in menus %}
-            <option value="{{ menu.menu_name }}">{{ menu.menu_name }}</option>
+            <option value="{{ menu.pk }}">{{ menu.menu_name }}</option>
             {% endfor %}
         </select>
       </p>

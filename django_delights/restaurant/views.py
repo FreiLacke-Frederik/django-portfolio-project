@@ -212,7 +212,26 @@ def purchase_delete(request, pk):
     return redirect('purchases')
 
 def purchase_create(request):
-    menus = MenuItem.objects.values("menu_name")
+    menus = MenuItem.objects.values("menu_name", "pk")
     context = {"menus": menus}
+
+    if request.method == 'POST':
+        form = PurchaseCreateForm(request.POST)
+        
+        if form.is_valid():
+            selected_menu_id = request.POST.get("item_name")
+            menu_item = MenuItem.objects.get(pk=selected_menu_id)
+            menu_ingredients = menu_item.menu_ingredients
+            purchase_legitimate = True
+            
+            for ingredient, ingredient_amount in menu_ingredients["ingredients"].items():
+                if not Ingredient.objects.get(ingredient_name=ingredient).ingredient_amount >= float(ingredient_amount):
+                    purchase_legitimate = False
+                    break
+            
+            if purchase_legitimate:
+                print("Insert code here to add purchase to the model")
+            elif not purchase_legitimate:
+                print("Insert code here to notify user that purchase could no be added due to low ingredients")
 
     return render(request, 'purchase_create.html', context)

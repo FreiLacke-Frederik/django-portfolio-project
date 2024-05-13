@@ -29,4 +29,4 @@ class PurchaseUpdateForm(forms.ModelForm):
 class PurchaseCreateForm(forms.ModelForm):
     class Meta:
             model = Purchase
-            fields = "__all__"
+            fields = ["item_amount", "item_name", "price"]

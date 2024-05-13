@@ -376,6 +376,7 @@ canvas {
   margin-bottom: 40px;
   padding-left: 20px;
   width: 350px;
+  overflow: auto;
 }
 
 .menus--dropdown option {
