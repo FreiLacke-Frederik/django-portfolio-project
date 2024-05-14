@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import datetime
 from django.urls import reverse
+from django.contrib import messages
 import json
 import re
 
@@ -136,7 +137,11 @@ def menu_item_create(request):
         result = {"ingredients": {}}
 
         for i in range(0, len(temp:=re.split('\s+', request.POST["menu_ingredients"].strip().replace(":", ""))), 2):
-            result["ingredients"][temp[i]] = temp[i+1] if not temp[i+1].endswith("g") else temp[i+1][:-1]
+            try:
+                result["ingredients"][temp[i]] = temp[i+1] if not temp[i+1].endswith("g") else temp[i+1][:-1]
+            except IndexError:
+                messages.error(request, "Faulty ingredient list")
+                return redirect("menu_items_create")
 
         query_dict_formatted["menu_ingredients"] = result
         
@@ -226,10 +231,13 @@ def purchase_create(request):
             purchase_legitimate = True
             
             for ingredient, ingredient_amount in menu_ingredients["ingredients"].items():
-                if not Ingredient.objects.get(ingredient_name=ingredient).ingredient_amount >= float(ingredient_amount):
+                try:
+                    if not Ingredient.objects.get(ingredient_name=ingredient).ingredient_amount >= float(ingredient_amount):
+                        purchase_legitimate = False
+                        break
+                except Ingredient.DoesNotExist:
                     purchase_legitimate = False
-                    break
-            
+
             if purchase_legitimate:
                 queryset_formatted = {obj: request.POST[obj] for obj in request.POST if obj != "csrfmiddlewaretoken"}
                 queryset_formatted["item_name"] = MenuItem.objects.get(pk=queryset_formatted["item_name"])
@@ -244,6 +252,7 @@ def purchase_create(request):
                 return redirect('purchases')
             
             elif not purchase_legitimate:
-                print("Insert code here to notify user that purchase could no be added due to low ingredients")
+                messages.error(request, "Your purchase could not be added")
+                return redirect("purchase_create")
 
     return render(request, 'purchase_create.html', context)

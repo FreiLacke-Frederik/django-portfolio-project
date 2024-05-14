@@ -52,4 +52,14 @@
     <a href="{% url 'purchases' %}" class="entry--deletebutton">Cancel</a>
   </div>
 </div>
+
+{% for msg in messages %}
+<div class="infobox--container">
+  <div class="infobox--content">
+    <div class="infobox--success">
+      <h1>{{ msg }}</h1>
+    </div>
+  </div>
+</div>
+{% endfor %}
 {% endblock %}

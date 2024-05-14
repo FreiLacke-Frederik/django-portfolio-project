@@ -416,3 +416,42 @@ canvas {
   position: relative;
 }
 
+.infobox--success {
+  min-width: 10vw;
+  min-height: 5vh;
+  max-width: 20vw;
+  max-height: 10vh;
+  width:fit-content;
+  height: fit-content;
+  top: 5vh;
+  right: 0;
+  height: fit-content;
+  background-color: #F5503B;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  padding: 10px 10px;
+  opacity: 0;
+  animation: slideIn .7s forwards;
+}
+
+.infobox--success h1 {
+  color: white;
+  font-size: calc(1vw);
+  font-weight: 600;
+}
+
+@keyframes slideIn {
+  0% {
+      top: 10vh;
+      right: 0;
+      opacity: 0;
+  }
+  100% {
+      top: 10vh; 
+      right: 5vw; 
+      opacity: 100;
+  }
+}
