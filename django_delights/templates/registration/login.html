@@ -1,6 +1,44 @@
-<h2>Log In</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form }}
-  <button type="submit">Log In</button>
-</form>
+{% load static %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'restaurant/styles.css' %}">
+</head>
+<body>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementsByClassName('login--form')[0];
+    var submitButton = document.getElementsByClassName('form--submitbutton')[0];
+
+    // Überprüfe Änderungen im Formular
+    form.addEventListener('change', function(event) {
+      // Aktiviere den Button, wenn sich das Formular ändert
+      submitButton.disabled = false;
+      submitButton.style.backgroundColor = "#007F4F"
+      submitButton.style.border = "2px solid #007F4F"
+    });
+
+  });
+  </script>
+
+<img src="{% static 'restaurant/media/assets/logo.png' %}" class="login--logo"/ width="120px" height="58px">
+<div class="login--form">
+  <form method="post">
+    {% csrf_token %}
+    <div>
+      <label class="form--heading">Username:</label>
+      <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required class="form--inputbox">
+    </div>
+
+    <div>
+      <label class="form--heading">Password:</label>
+      <input type="password" name="password" autocomplete="current-password" required class="form--inputbox">
+    </div>
+
+    <button type="submit" class="form--submitbutton">Log In</button>
+  </form>
+</div>
+
+</body>

@@ -19,7 +19,7 @@
 
 <body>
     <header class="header">
-        <a href="{% url 'dashboard' %}" class="logo">Logo</a>
+        <a href="{% url 'dashboard' %}" class="logo"><img src="{% static 'restaurant/media/assets/logo.png' %}" width="120px" height="58px"></a>
 
         <nav class="navbar">
             <a href="{% url 'menu_items' %}">Menu Items</a>
@@ -36,7 +36,7 @@
                     {% csrf_token %}
                     <ul>
                         <li>{{ user }}</li>
-                        <li><button type="submit">Logout</button></li>
+                        <li><button type="submit" id="logout--button">Logout</button></li>
                     </ul>        
                 </form>
             </div>

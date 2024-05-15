@@ -91,6 +91,7 @@ body {
 
 .profile-menu ul li {
   color: white;
+  font-size: 15px;
 }
 
 .profile-menu ul li button {
@@ -99,13 +100,27 @@ body {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  font-size: 15px;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 500;
   margin-top: 5px;
+  transition: all .3s ease-in-out;
 }
 
 .profile-menu ul li button:hover {
-  font-weight: 600;
+  transform: translateY(-2px);
+}
+
+.login--logo {
+  position: fixed;
+  left: 2vw;
+  top: 2vh;
+}
+
+.login--form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .dashboard--wrapper {
@@ -214,6 +229,7 @@ canvas {
   display: flex;
   position: relative;
   justify-content: center;
+  top: 20vh;
 }
 
 .table--container {
@@ -222,7 +238,6 @@ canvas {
   align-items: center;
   text-align: left;
   flex-direction: column;
-  top: 20vh;
   position: relative;
   height: fit-content;
   max-width: max-content;
