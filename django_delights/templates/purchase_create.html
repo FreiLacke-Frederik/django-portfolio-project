@@ -14,50 +14,48 @@
     submitButton.style.border = "2px solid #007F4F"
   });
 
-  document.querySelector('.form--submitbutton').addEventListener('click', function() {
-    document.getElementById('purchase-form').submit();
-  });
 });
 </script>
 {% endblock %}
 
 {% block content %}
+<h1 class="site--heading">Add<br>Purchase</h1>
 <div class="purchase-form-container">
   <div class="form--form--container">
     <form id="purchase-form" action="" method="POST">
       {% csrf_token %}
       <p>
         <label class="form--heading" for="id_item_amount">Amount</label>
-        <input class="form--inputbox" type="number" name="item_amount" maxlength="100" required="" id="id_item_amount" value="">
+        <input class="form--inputbox" type="number" name="item_amount" maxlength="100" id="id_item_amount" required/>
       </p>
 
       <p>
         <label class="form--heading" for="id_item_name">Menu</label>
         <select class="menus--dropdown" id="id_item_name" name="item_name">
-            {% for menu in menus %}
-            <option value="{{ menu.pk }}">{{ menu.menu_name }}</option>
-            {% endfor %}
+          {% for item in form.item_name.field.queryset %}
+          <option value="{{ item.pk }}">{{ item }}</option>
+          {% endfor %}
         </select>
       </p>
 
       <p>
         <label class="form--heading" for="id_price">Price</label>
-        <input class="form--inputbox" type="number" name="price" maxlength="50" required="" id="id_price" value="">
+        <input class="form--inputbox" type="number" name="price" maxlength="50" id="id_price" required/>
       </p>
+      <div class="form--button--container">
+        <input class="form--submitbutton" type="submit" value="Add Purchase" disabled/>
+        <a href="{% url 'purchases' %}" class="entry--deletebutton">Cancel</a>
+      </div>
+    </div>
     </form>
   </div>
-  
-  <div class="form--button--container">
-    <input class="form--submitbutton" type="submit" value="Add Purchase" disabled/>
-    <a href="{% url 'purchases' %}" class="entry--deletebutton">Cancel</a>
-  </div>
-</div>
 
 {% for msg in messages %}
 <div class="infobox--container">
   <div class="infobox--content">
     <div class="infobox--success">
-      <h1>{{ msg }}</h1>
+      <h1>{{ msg }}</h1> 
+      <span class="infobox--close--button" onclick="this.parentElement.style.display='none';">&times;</span>
     </div>
   </div>
 </div>

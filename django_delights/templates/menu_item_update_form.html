@@ -22,6 +22,7 @@
 {% endblock %}
 
 {% block content %}
+<h1 class="site--heading">Update<br>Menu</h1>
 <div class="menu-items-form-container">
   <div class="form--form--container">
     <form id="menu-item-form" action="" method="POST">
@@ -38,17 +39,18 @@
 
       <p>
         <label class="form--heading" for="id_menu_ingredients">Ingredients</label>
-        <textarea class="form--inputbox" name="menu_ingredients" cols="40" rows="10" required="" id="id_menu_ingredients">
+        <textarea class="form--inputbox" name="menu_ingredients" cols="40" rows="7" required="" id="id_menu_ingredients">
 {% for key, value in fields.menu_ingredients.ingredients.items %}{{key}}: {{value}}g
 {% endfor %} 
         </textarea> <!-- Muss so im Code platziert werden damit es richtig in der textarea angezeigt wird -->
       </p>  
+
+      <div class="form--button--container">
+        <input class="form--submitbutton" type="submit" value="Save Menu" disabled/>
+        <a href="{% url 'menu_item_delete' pk%}" class="entry--deletebutton">Delete Menu</a>
+      </div>
+    </div>
     </form>
   </div>
   
-  <div class="form--button--container">
-    <input class="form--submitbutton" type="submit" value="Save Menu" disabled/>
-    <a href="{% url 'menu_item_delete' pk%}" class="entry--deletebutton">Delete Menu</a>
-  </div>
-</div>
 {% endblock %}

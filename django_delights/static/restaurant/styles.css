@@ -134,10 +134,6 @@ body {
   transform: translateY(-5px);
 }
 
-.dashboard-card:has(> .lowstock-card) {
-  background-color: #F5503B;
-}
-
 .card-title {
   font-size: 15px;
   font-weight: 600;
@@ -225,12 +221,30 @@ canvas {
 }
 
 .menu-items-form-container, .ingredient-form-container, .purchase-form-container {
-  position: relative;
-  top: 20vh;
-  left: 27vw;
+  position: fixed;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-wrap: wrap;
   max-width: max-content;
+  justify-content: left;
+}
+
+.site--heading {
+  position: fixed;
+  top: 30%;
+  left: 12%;
+  color: white;
+  font-size: 125px;
+  font-weight: 800;
+}
+
+br {
+  content: " ";
+  line-height: 10px;
+  display: block;
+  margin: 0px 0;
 }
 
 .form--submitbutton {
@@ -351,8 +365,7 @@ canvas {
 
 .form--button--container {
   position: relative;
-  left: 10vw;
-  top: 3.5vh
+  top: 5vh;
 }
 
 .form--heading {
@@ -419,11 +432,11 @@ canvas {
 .infobox--success {
   min-width: 10vw;
   min-height: 5vh;
-  max-width: 20vw;
+  max-width: 25vw;
   max-height: 10vh;
   width:fit-content;
   height: fit-content;
-  top: 5vh;
+  top: 10vh;
   right: 0;
   height: fit-content;
   background-color: #F5503B;
@@ -431,10 +444,11 @@ canvas {
   display: flex;
   align-items: center;
   justify-content: center;
+  word-wrap: break-word;
   border-radius: 7px;
   padding: 10px 10px;
   opacity: 0;
-  animation: slideIn .7s forwards;
+  animation: slideIn .4s forwards;
 }
 
 .infobox--success h1 {
@@ -445,13 +459,24 @@ canvas {
 
 @keyframes slideIn {
   0% {
-      top: 10vh;
       right: 0;
       opacity: 0;
   }
   100% {
-      top: 10vh; 
       right: 5vw; 
       opacity: 100;
   }
+}
+
+.infobox--close--button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: inherit;
+  padding: 0;
+  cursor: pointer;
+  align-self: flex-end;
+  font-weight: 700;
+  font-size: 28px;
+  padding-left: 2vw;
 }

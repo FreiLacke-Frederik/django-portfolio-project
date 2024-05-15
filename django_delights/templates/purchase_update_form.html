@@ -22,6 +22,7 @@
 {% endblock %}
 
 {% block content %}
+<h1 class="site--heading">Update<br>Purchase</h1>
 <div class="purchase-form-container">
   <div class="form--form--container">
     <form id="purchase-form" action="" method="POST">
@@ -44,13 +45,15 @@
         <label class="form--heading" for="id_price">Price</label>
         <input class="form--inputbox" type="number" name="price" maxlength="50" required="" id="id_price" value="{{fields.price}}">
       </p>
+
+      <div class="form--button--container">
+        <input class="form--submitbutton" type="submit" value="Save Purchase" disabled/>
+        <a href="{% url 'purchase_delete' pk %}" class="entry--deletebutton">Delete Purchase</a>
+      </div>
+    </div>
     </form>
   </div>
   
-  <div class="form--button--container">
-    <input class="form--submitbutton" type="submit" value="Save Purchase" disabled/>
-    <a href="{% url 'purchase_delete' pk %}" class="entry--deletebutton">Delete Purchase</a>
-  </div>
-</div>
+  
 
 {% endblock %}

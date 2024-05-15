@@ -14,38 +14,36 @@
     submitButton.style.border = "2px solid #007F4F"
   });
 
-  document.querySelector('.form--submitbutton').addEventListener('click', function() {
-    document.getElementById('menu-item-form').submit();
-  });
 });
 </script>
 {% endblock %}
 
 {% block content %}
+<h1 class="site--heading">Add<br>Menu</h1>
 <div class="menu-items-form-container">
   <div class="form--form--container">
     <form id="menu-item-form" action="" method="POST">
       {% csrf_token %}
       <p>
         <label class="form--heading" for="id_menu_name">Name</label>
-        <input class="form--inputbox" type="text" name="menu_name" maxlength="100" required="" id="id_menu_name" value="">
+        <input class="form--inputbox" type="text" name="menu_name" maxlength="100" id="id_menu_name" value="" required/>
       </p>
 
       <p>
         <label class="form--heading" for="id_menu_price">Price</label>
-        <input class="form--inputbox" type="number" name="menu_price" step="any" required="" id="id_menu_price" value="">
+        <input class="form--inputbox" type="number" name="menu_price" step="any" id="id_menu_price" value="" required/>
       </p>
 
       <p>
         <label class="form--heading" for="id_menu_ingredients">Ingredients</label>
-        <textarea class="form--inputbox" name="menu_ingredients" cols="40" rows="10" required="" id="id_menu_ingredients"></textarea>
+        <textarea class="form--inputbox" name="menu_ingredients" cols="40" rows="7" id="id_menu_ingredients" required></textarea>
       </p>  
+
+      <div class="form--button--container">
+        <input class="form--submitbutton" type="submit" value="Create Menu" disabled/>
+        <a href="{% url 'menu_items' %}" class="cancel--create--button">Cancel</a>
+      </div>
     </form>
-  </div>
-  
-  <div class="form--button--container">
-    <input class="form--submitbutton" type="submit" value="Create Menu" disabled/>
-    <a href="{% url 'menu_items' %}" class="cancel--create--button">Cancel</a>
   </div>
 </div>
 
@@ -54,6 +52,7 @@
   <div class="infobox--content">
     <div class="infobox--success">
       <h1>{{ msg }}</h1>
+      <span class="infobox--close--button" onclick="this.parentElement.style.display='none';">&times;</span>
     </div>
   </div>
 </div>

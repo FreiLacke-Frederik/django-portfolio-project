@@ -14,14 +14,12 @@
     submitButton.style.border = "2px solid #007F4F"
   });
 
-  document.querySelector('.form--submitbutton').addEventListener('click', function() {
-    document.getElementById('ingredient-form').submit();
-  });
 });
 </script>
 {% endblock %}
 
 {% block content %}
+<h1 class="site--heading">Update<br>Ingredient</h1>
 <div class="ingredient-form-container">
   <div class="form--form--container">
     <form id="ingredient-form" action="" method="POST">
@@ -45,12 +43,12 @@
         <label class="form--heading" for="id_price_per_kilo">Price per Kilo</label>
         <input class="form--inputbox" type="number" name="price_per_kilo" step="any" required="" id="id_price_per_kilo" value="{{fields.price_per_kilo}}">
       </p>
+
+      <div class="form--button--container">
+        <input class="form--submitbutton" type="submit" value="Save Ingredient" disabled/>
+        <a href="{% url 'ingredient_delete' pk %}" class="entry--deletebutton">Delete Ingredient</a>
+      </div>
     </form>
-  </div>
-  
-  <div class="form--button--container">
-    <input class="form--submitbutton" type="submit" value="Save Ingredient" disabled/>
-    <a href="{% url 'ingredient_delete' pk %}" class="entry--deletebutton">Delete Ingredient</a>
   </div>
 </div>
 {% endblock %}

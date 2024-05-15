@@ -104,7 +104,12 @@
 
                         let noLowStockIndicator = document.getElementById("no-low-stock-warning");
 
-                        if(noLowStockIndicator) {
+                        if(!noLowStockIndicator) {
+                            let lowStockCard = document.querySelector('.dashboard-card:has(> .lowstock-card)');
+                            lowStockCard.style.backgroundColor = "#F5503B";
+                        }
+
+                        else if(noLowStockIndicator) {
                             let lowStockCard = document.querySelector('.dashboard-card:has(> .lowstock-card)');
                             lowStockCard.style.backgroundColor = "#007F4F";
                         }
