@@ -1,7 +1,7 @@
 from typing import Any
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from django.views.generic import TemplateView, ListView, UpdateView
+from django.views.generic import TemplateView
 from restaurant.models import Ingredient, MenuItem, Purchase
 from restaurant.forms import MenuItemsUpdateForm, MenuItemsCreateForm, InventoryUpdateForm, InventoryCreateForm, PurchaseUpdateForm, PurchaseCreateForm
 from django.db.models import Sum, Count
@@ -9,9 +9,7 @@ from django.db.models.functions import TruncDate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from datetime import datetime
-from django.urls import reverse
 from django.contrib import messages
-from django import forms
 import json
 import re
 
