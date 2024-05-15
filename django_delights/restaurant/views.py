@@ -19,7 +19,7 @@ def authentication(request):
     if request.user.is_authenticated:
         return redirect('dashboard')
     else:
-        return render(request, "test.html")
+        return redirect('login')
 
 class Dashboard(LoginRequiredMixin, TemplateView):
     template_name = "dashboard.html"
@@ -62,9 +62,10 @@ class Dashboard(LoginRequiredMixin, TemplateView):
         context["sales_count"] = sales_count
         context["inventory_value"] = inventory_value
         context["sales_per_day"] = sales_per_day
+        context["user"] = self.request.user.username
         return context
 
-class MenuItemsList(TemplateView):
+class MenuItemsList(LoginRequiredMixin, TemplateView):
     template_name = "menu_item_table.html"
     
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
@@ -77,7 +78,7 @@ class MenuItemsList(TemplateView):
 
         return context
     
-class InventoryList(TemplateView):
+class InventoryList(LoginRequiredMixin, TemplateView):
     template_name = "inventory_table.html"
     
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
@@ -90,7 +91,7 @@ class InventoryList(TemplateView):
 
         return context
     
-class PurchaseList(TemplateView):
+class PurchaseList(LoginRequiredMixin, TemplateView):
     template_name = "purchase_table.html"
     
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
@@ -103,6 +104,7 @@ class PurchaseList(TemplateView):
 
         return context
 
+@login_required
 def menu_item_update(request, pk):
     objects = MenuItem.objects.get(pk=pk)
     context = {"form": MenuItemsUpdateForm, "fields": objects, "pk": pk}
@@ -125,12 +127,14 @@ def menu_item_update(request, pk):
 
     return render(request, 'menu_item_update_form.html', context)
 
+@login_required
 def menu_item_delete(request, pk):
     menu_item = get_object_or_404(MenuItem, pk=pk)
     menu_item.delete()
     
     return redirect('menu_items')
 
+@login_required
 def menu_item_create(request):
 
     if request.method == 'POST':
@@ -160,6 +164,7 @@ def menu_item_create(request):
         
     return render(request, 'menu_item_create.html')
 
+@login_required
 def ingredient_update(request, pk):
     objects = Ingredient.objects.get(pk=pk)
     context = {"form": InventoryUpdateForm, "fields": objects, "pk": pk}
@@ -174,12 +179,14 @@ def ingredient_update(request, pk):
 
     return render(request, 'inventory_update_form.html', context)
 
+@login_required
 def ingredient_delete(request, pk):
     ingredient = get_object_or_404(Ingredient, pk=pk)
     ingredient.delete()
 
     return redirect('inventory')
 
+@login_required
 def ingredient_create(request):
 
     if request.method == 'POST':
@@ -194,6 +201,7 @@ def ingredient_create(request):
             print("Invalid form")
     return render(request, 'inventory_create.html')
 
+@login_required
 def purchase_update(request, pk):
     objects = Purchase.objects.get(pk=pk)
     context = {"form": PurchaseUpdateForm, "fields": objects, "pk": pk}
@@ -211,12 +219,14 @@ def purchase_update(request, pk):
     
     return render(request, 'purchase_update_form.html', context)
 
+@login_required
 def purchase_delete(request, pk):
     purchase = get_object_or_404(Purchase, pk=pk)
     purchase.delete()
 
     return redirect('purchases')
 
+@login_required
 def purchase_create(request):
     context = {"form": PurchaseCreateForm(use_required_attribute=True)}
 

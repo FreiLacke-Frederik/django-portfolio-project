@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns=[
     path('', views.authentication, name='authentication'),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('dashboard/', views.Dashboard.as_view(), name='dashboard'),
     path('menu-items/', views.MenuItemsList.as_view(), name='menu_items'),
     path('menu-items/<int:pk>', views.menu_item_update, name='menu_items_update'),

@@ -5,6 +5,14 @@
     <meta http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'restaurant/styles.css' %}">
+
+    <script>
+        function menuToggle() {
+          const toggleMenu = document.querySelector(".profile-menu");
+          toggleMenu.classList.toggle("active");
+        }
+    </script>
+
 {% block head %}
 {% endblock %}
 </head>
@@ -17,8 +25,22 @@
             <a href="{% url 'menu_items' %}">Menu Items</a>
             <a href="{% url 'inventory' %}">Inventory</a>
             <a href="{% url 'purchases' %}">Purchases</a>
+            
         </nav>
-
+        <div class="profile--menu--nav">
+            <div class="profile" onclick="menuToggle();">
+                <img src="{% static 'restaurant/media/assets/avatar.png' %}" width="40px" height="40px"/>
+            </div>
+            <div class="profile-menu">
+                <form action="{% url 'logout' %}" method="POST">
+                    {% csrf_token %}
+                    <ul>
+                        <li>{{ user }}</li>
+                        <li><button type="submit">Logout</button></li>
+                    </ul>        
+                </form>
+            </div>
+        </div>
     </header>
 {% block content %}
 {% endblock %}
