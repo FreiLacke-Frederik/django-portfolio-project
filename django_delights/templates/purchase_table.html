@@ -9,13 +9,13 @@
 {% block content %}
 <div class="table--wrapper">
     <div class="table--container">
-        <a href="{% url 'purchase_create' %}" class="create--entry--button">Add Entry</a>
         <table class="content-table">
             <thead>
                 <tr>
                     {% for column_name in columns %}
                     <th>{{ column_name }}</th>
                     {% endfor %}
+                    <th class="table--add--button" data-href="{% url 'purchase_create' %}">+</th>
                 </tr>
             </thead>
             <tbody>
