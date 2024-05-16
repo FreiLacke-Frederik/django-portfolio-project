@@ -262,8 +262,5 @@ def purchase_create(request):
             elif not purchase_legitimate:
                 messages.error(request, "Your purchase could not be added")
                 return redirect("purchase_create")
-        
-        else:
-            print("Invalid")
 
     return render(request, 'purchase_create.html', context)
