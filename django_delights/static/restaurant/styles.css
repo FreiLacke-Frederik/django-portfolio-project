@@ -124,10 +124,12 @@ body {
 }
 
 .dashboard--wrapper {
-  position: relative;
-  top: 15vh;
-  left: 25vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   max-width: max-content;
+
+  transform: translate(-50%, -50%);
 }
 
 .card--wrapper h1, h2, h3, h4 {
@@ -136,16 +138,13 @@ body {
 
 .card--container {
   position: relative;
-  box-sizing: border-box;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  flex-flow: row wrap;
-  justify-content:space-between;
-  align-items: left;
-  gap: 0rem;
-  width: 50vw;
-  flex-basis: 100%;
+  height: fit-content;
+}
+
+@media screen and (max-width:1500px) {
+  .card--container {flex-flow: column wrap;}
+  .dashboard--wrapper {top: 114%;}
 }
 
 .dashboard-card {
@@ -153,6 +152,8 @@ body {
   border-radius: 10px;
   padding: 1.2rem;
   width: 335px;
+  box-sizing: border-box;
+  margin-right: 20px;
   height: fit-content;
   transition: all .3s ease-in-out;
   cursor:default
@@ -166,7 +167,7 @@ body {
   gap: 1rem;
   position: relative;
   flex-wrap: wrap;
-  width:18vw;
+  width:350px;
   height: fit-content;
   margin-bottom: 40px;
 }
@@ -179,7 +180,7 @@ body {
   gap: 1rem;
   position: relative;
   flex-wrap: wrap;
-  width:18vw;
+  width:350px;
   height: fit-content;
   margin-bottom: 40px;
 }
@@ -192,7 +193,7 @@ body {
   gap: 1rem;
   position: relative;
   flex-wrap: wrap;
-  width:18vw;
+  width:350px;
   height: fit-content;
   margin-bottom: 40px;
 }
