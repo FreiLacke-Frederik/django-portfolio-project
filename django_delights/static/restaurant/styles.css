@@ -33,6 +33,10 @@ body {
   margin-right: auto;
 }
 
+.navbar {
+  display: flex;
+}
+
 .navbar a {
   position: relative;
   font-size: 18px;
@@ -59,6 +63,7 @@ body {
 
 .profile--menu--nav {
   margin-left: 40px;
+  position: relative;
 }
 
 .profile {
@@ -67,8 +72,9 @@ body {
 
 .profile-menu {
   position: absolute;
-  top: 120px;
-  right: 10px;
+  top: 110px;
+  right: 10%;
+  transform: translateX(50%);
   padding: 10px 20px;
   background: #242930;
   width: 150px;
@@ -80,7 +86,7 @@ body {
 }
 
 .profile-menu.active {
-  top: 80px;
+  top: 70px;
   visibility: visible;
   opacity: 1;
 }
@@ -110,6 +116,14 @@ body {
   transform: translateY(-2px);
 }
 
+@media screen and (max-width:1000px) {
+  .navbar {flex-flow: column wrap;}
+  .navbar a {margin-bottom: 15px; text-align: center; margin-left: 0px;}
+  .header {flex-flow: column wrap; justify-content: center; align-items: center;}
+  .logo {margin-right: 0px; margin-bottom: 40px;}
+  .profile--menu--nav {margin-left: 0px; margin-bottom: 120px;}
+}
+
 .login--logo {
   position: fixed;
   left: 2vw;
@@ -124,12 +138,10 @@ body {
 }
 
 .dashboard--wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  max-width: max-content;
-
-  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .card--wrapper h1, h2, h3, h4 {
@@ -144,7 +156,7 @@ body {
 
 @media screen and (max-width:1500px) {
   .card--container {flex-flow: column wrap;}
-  .dashboard--wrapper {top: 114%;}
+  .dashboard-title {left: 0px; right: 0px; padding-left: 0px; align-self: center;}
 }
 
 .dashboard-card {
@@ -162,8 +174,6 @@ body {
 .dashboard--information--area {
   display: flex;
   flex-direction: column;
-  flex: 0 1 49%;
-  flex-basis: 32%;
   gap: 1rem;
   position: relative;
   flex-wrap: wrap;
@@ -175,8 +185,6 @@ body {
 .dashboard--statistics--area {
   display: flex;
   flex-direction: column;
-  flex: 0 1 49%;
-  flex-basis: 32%;
   gap: 1rem;
   position: relative;
   flex-wrap: wrap;
@@ -188,8 +196,6 @@ body {
 .dashboard--charts--area {
   display: flex;
   flex-direction: column;
-  flex: 0 1 49%;
-  flex-basis: 32%;
   gap: 1rem;
   position: relative;
   flex-wrap: wrap;
@@ -209,9 +215,11 @@ body {
 }
 
 .dashboard-title {
+  position: relative;
   font-size: 32px;
   padding-bottom: 5px;
   padding-left: 5px;
+  right: 435px;
 }
 
 .dashboard-card:has(> .sales--chart--card){
